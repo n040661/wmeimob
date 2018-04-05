@@ -578,12 +578,12 @@ public class StringUtils {
 	}
 
 	/**
-	 * Normalize the path by suppressing sequences like "path/.." and
-	 * inner simple dots.
-	 * <p>The result is convenient for path comparison. For other uses,
-	 * notice that Windows separators ("\") are replaced by simple slashes.
-	 * @param path the original path
-	 * @return the normalized path
+	 * 序列化路径
+	 * 通过抑制像“路径..”和内部简单点这样的序列使路径正常化。
+	 * <p>结果便于路径比较。其他用途，
+	 * 注意Windows分隔符（“\”）是由简单的斜线取代。
+	 * @param 原路径 path
+	 * @return 规范化路径 path
 	 */
 	public static String cleanPath(String path) {
 		if (path == null) {

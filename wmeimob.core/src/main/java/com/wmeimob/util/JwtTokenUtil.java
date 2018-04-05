@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,19 +16,52 @@ public class JwtTokenUtil implements Serializable {
     private static final String CLAIM_KEY_ID = "sub_id";
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
+    private static final String SESSION_KEY = "ADMIN_SESSION_";
 
     private String header;
     private String secret;
     private Long expiration;
-    
-    public JwtTokenUtil() {}
-    
-    public JwtTokenUtil(String header, String secret, Long expiration) {
-    	this.header = header;
-    	this.secret = secret;
-    	this.expiration = expiration;
+    private String tokenHead;
+
+    public JwtTokenUtil() {
     }
 
+    public JwtTokenUtil(String header, String secret, Long expiration) {
+        this.header = header;
+        this.secret = secret;
+        this.expiration = expiration;
+    }
+    
+    /**
+     * 根据账号和ID获取sessionKey
+     * @param id
+     * @param username
+     * @return
+     * @author zJun
+     * @date 2018年3月28日 下午8:54:07
+     */
+    public String getSessionKey(Integer id, String username) {
+        return SESSION_KEY + username + "_" + id;
+    }
+
+    /**
+     * 返回session Key
+     * @param token
+     * @return
+     * @author zJun
+     * @date 2018年3月27日 上午9:44:30
+     */
+    public String getSessionKey(String token) {
+        String key;
+        try {
+            final Claims claims = getClaimsFromToken(token);
+            key = SESSION_KEY + claims.getSubject() + "_" + claims.get(CLAIM_KEY_ID);
+        } catch (Exception e) {
+            key = null;
+        }
+        return key;
+    }
+    
     public String getUsernameFromToken(String token) {
         String username;
         try {
@@ -40,14 +72,14 @@ public class JwtTokenUtil implements Serializable {
         }
         return username;
     }
-    
+
     public String getIdFromToken(String token) {
         String Id = null;
         try {
             final Claims claims = getClaimsFromToken(token);
             Id = (String) claims.get(CLAIM_KEY_ID);
         } catch (Exception e) {
-        	Id = null;
+            Id = null;
         }
         return Id;
     }
@@ -77,10 +109,7 @@ public class JwtTokenUtil implements Serializable {
     private Claims getClaimsFromToken(String token) {
         Claims claims;
         try {
-            claims = Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody();
+            claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             claims = null;
         }
@@ -109,17 +138,13 @@ public class JwtTokenUtil implements Serializable {
     }
 
     String generateToken(Map<String, Object> claims) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, secret)
-                .compact();
+        return Jwts.builder().setClaims(claims).setExpiration(generateExpirationDate())
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
         final Date created = getCreatedDateFromToken(token);
-        return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset)
-                && !isTokenExpired(token);
+        return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset) && !isTokenExpired(token);
     }
 
     public String refreshToken(String token) {
@@ -134,38 +159,46 @@ public class JwtTokenUtil implements Serializable {
         return refreshedToken;
     }
 
-	public Boolean validateToken(String token, JwtUser user) {
+    public Boolean validateToken(String token, JwtUser user) {
+        final String id = getIdFromToken(token);
         final String username = getUsernameFromToken(token);
-        final Date created = getCreatedDateFromToken(token);
-        //final Date expiration = getExpirationDateFromToken(token);
-        return (
-                username.equals(user.getUsername())
-                        && !isTokenExpired(token)
-                        && !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));
+        // final Date created = getCreatedDateFromToken(token);
+        // final Date expiration = getExpirationDateFromToken(token);
+        // && !isCreatedBeforeLastPasswordReset(created,
+        // user.getLastPasswordResetDate())
+        return (username.equals(user.getUsername()) && (id.equals(user.getId()) && !isTokenExpired(token)));
     }
 
-	public String getSecret() {
-		return secret;
-	}
+    public String getSecret() {
+        return secret;
+    }
 
-	public void setSecret(String secret) {
-		this.secret = secret;
-	}
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
 
-	public Long getExpiration() {
-		return expiration;
-	}
+    public Long getExpiration() {
+        return expiration;
+    }
 
-	public void setExpiration(Long expiration) {
-		this.expiration = expiration;
-	}
+    public void setExpiration(Long expiration) {
+        this.expiration = expiration;
+    }
 
-	public String getHeader() {
-		return header;
-	}
+    public String getHeader() {
+        return header;
+    }
 
-	public void setHeader(String header) {
-		this.header = header;
-	}
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String getTokenHead() {
+        return tokenHead;
+    }
+
+    public void setTokenHead(String tokenHead) {
+        this.tokenHead = tokenHead;
+    }
+    
 }
-

@@ -1,20 +1,19 @@
 package com.wmeimob.exception;
 
 /**
- * 自定义授权错误异常
- * 未授权或授权失败都应该抛出此异常
+ * 后台自定义异常
  * @author zJun
- * @date 2018年2月4日 下午7:33:13
+ * @date 2018年3月28日 上午11:11:54
  */
-public class AuthorityException extends RuntimeException {
+public class AdminException extends RuntimeException {
 	
     private static final long serialVersionUID = 1L;
 	
 	public String msg;
 	
-	public AuthorityException() {}
+	public AdminException() {}
 
-	public AuthorityException(String msg) {
+	public AdminException(String msg) {
 		super(msg);
 		this.msg = msg;
 	}

@@ -13,6 +13,10 @@ import java.util.*;
  */
 public class DateUtil {
     public final static String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public final static String SHORT_DATE_FORMAT = "yyyy-MM-dd";
+    public final static String RULE_1 = "-";
+    public final static String RULE_2 = ":";
+    public final static String RULE_3 = "^\\d+$";
 
     /**当前系统时间 */
 	public static Date getCurrDate() {

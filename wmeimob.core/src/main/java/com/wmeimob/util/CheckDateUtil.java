@@ -287,12 +287,11 @@ public class CheckDateUtil {
 	 * 验证手机号码
 	 * 
 	 * @param telNo
-	 *            电话号码字符串 130到139 和 150，152 ，157，158，159 ，186，189，187
+	 *            电话号码字符串 130到139 和 150、152、157、158、159 、186、189、187
 	 * @return
 	 */
 	public static boolean isValidMobileNo(String mobileNo) {
 		boolean flag = false;
-		// Pattern p = Pattern.compile("^(1[358][13567890])(\\d{8})$");
 		Pattern p = Pattern.compile("^[1][3,4,5,7,8][0-9]{9}$");
 		Matcher match = p.matcher(mobileNo);
 		if (mobileNo != null) {
@@ -521,7 +520,7 @@ public class CheckDateUtil {
 	 * @return 如果是符合格式的字符串,返回 <b>true </b>,否则为 <b>false </b>
 	 */
 	public static boolean IsPasswLength(String str) {
-		String regex = "^\\d{6,18}$";
+		String regex = ".{6,18}$";
 		return match(regex, str);
 	}
 
@@ -560,7 +559,7 @@ public class CheckDateUtil {
 	
 	public static void main(String[] args) {
 		
-		System.out.println(isValidMobileNo("18018840522"));
+		System.out.println(IsPasswLength("zhoujun123"));
 		System.out.println(isValidMobileNo("17621451376"));
 	}
 }
