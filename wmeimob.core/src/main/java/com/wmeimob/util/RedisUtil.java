@@ -61,6 +61,16 @@ public class RedisUtil {
 		stringRedisTemplate.opsForValue().set(key, value, seconds, TimeUnit.SECONDS);
 	}
 	
+	/**
+	 * 删除key
+	 * @param key
+	 * @author zJun
+	 * @date 2018年4月26日 下午3:37:30
+	 */
+	public void remove(String key) {
+	    stringRedisTemplate.opsForValue().set(key, null, 1, TimeUnit.SECONDS);
+	}
+	
 	public <T> void setValue(String key, T value){
 		ValueOperations<String, T> operations=redisTemplate.opsForValue();
 		operations.set(key, value);

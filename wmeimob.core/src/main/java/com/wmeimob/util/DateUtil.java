@@ -3,7 +3,12 @@ package com.wmeimob.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  * 常用的时间操作方法
@@ -606,8 +611,12 @@ public class DateUtil {
     	
     	System.out.println(getDateStrList(DateUtil.strToDate("20170901", "yyyyMMdd"), DateUtil.strToDate("20170901", "yyyyMMdd")));
     	
+    	Date d = DateUtil.strToDate("20180418", "yyyyMMdd");
+    	d = DateUtil.getInternalDateByHour(d, 12);
+    	System.out.println("提前退房时间："+DateUtil.dateToStr(d));
+    	System.out.println(d.after(new Date()));
     	
-    	
+    	System.out.println(getInternalDateByHour(new Date(), -3));
     	
     	
     	
