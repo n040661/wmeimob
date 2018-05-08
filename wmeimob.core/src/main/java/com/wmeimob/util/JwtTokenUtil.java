@@ -1,6 +1,7 @@
 package com.wmeimob.util;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,14 +35,14 @@ public class JwtTokenUtil implements Serializable {
     
     /**
      * 根据账号和ID获取sessionKey
-     * @param id
+     * @param bigInteger
      * @param username
      * @return
      * @author zJun
      * @date 2018年3月28日 下午8:54:07
      */
-    public String getSessionKey(Integer id, String username) {
-        return SESSION_KEY + username + "_" + id;
+    public String getSessionKey(BigInteger bigInteger, String username) {
+        return SESSION_KEY + username + "_" + bigInteger;
     }
 
     /**
