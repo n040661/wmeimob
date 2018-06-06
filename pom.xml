@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.wmeimob</groupId>
@@ -7,11 +8,11 @@
 	<packaging>pom</packaging>
 	<description>美萌</description>
 
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>  
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 		<java.version>1.8</java.version>
 		<dependencies.dependency.version>1.5.10.RELEASE</dependencies.dependency.version>
 	</properties>
@@ -36,7 +37,7 @@
 				<type>jar</type>
 				<version>${project.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.mybatis.spring.boot</groupId>
 				<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -56,7 +57,7 @@
 				<artifactId>mapper-spring-boot-starter</artifactId>
 				<version>1.1.0</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>io.jsonwebtoken</groupId>
 				<artifactId>jjwt</artifactId>
@@ -100,30 +101,38 @@
 
 
 	<repositories>
+<!-- 		<repository> -->
+<!-- 			<id>wmeimob-snapshot</id> -->
+<!-- 			<name>Wmeimob Repository</name> -->
+<!-- 			<url>http://nexus.wmeimob.com/content/repositories/snapshots/</url> -->
+<!-- 		</repository> -->
+<!-- 		<repository> -->
+<!-- 			<id>aliyun-snapshot</id> -->
+<!-- 			<name>aliyun Repository</name> -->
+<!-- 			<url>http://maven.aliyun.com/nexus/content/repositories/central/</url> -->
+<!-- 		</repository> -->
 		<repository>
-			<id>wmeimob-snapshot</id>
-			<name>Wmeimob Repository</name>
-			<url>http://nexus.wmeimob.com/content/repositories/snapshots/</url>
+			<id>rdc-releases</id>
+			<url>https://repo.rdc.aliyun.com/repository/20927-release-EZ6NOh/</url>
 		</repository>
 		<repository>
-			<id>aliyun-snapshot</id>
-			<name>aliyun Repository</name>
-			<url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+			<id>rdc-snapshots</id>
+			<url>https://repo.rdc.aliyun.com/repository/20927-snapshot-vxVq6p/</url>
 		</repository>
 	</repositories>
 
 	<distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>Releases</name>
-            <url>http://nexus.dev.wmeimob.com/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <name>Snapshot</name>
-            <url>http://nexus.dev.wmeimob.com/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+		<repository>
+			<id>rdc-releases</id>
+			<url>https://repo.rdc.aliyun.com/repository/20927-release-EZ6NOh/</url>
+		</repository>
+		<snapshotRepository>
+			<id>rdc-snapshots</id>
+			<url>https://repo.rdc.aliyun.com/repository/20927-snapshot-vxVq6p/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
 
 	<build>
 		<plugins>
@@ -136,21 +145,21 @@
 				</configuration>
 			</plugin>
 			<!-- 要将源码放上去，需要加入这个插件 -->
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 
 		<resources>
