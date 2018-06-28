@@ -19,6 +19,8 @@
 
 	<modules>
 		<module>wmeimob.core</module>
+		<module>wmeimob-doclet</module>
+		<module>wmeimob-doclet-example</module>
 	</modules>
 
 	<dependencyManagement>
@@ -101,16 +103,6 @@
 
 
 	<repositories>
-<!-- 		<repository> -->
-<!-- 			<id>wmeimob-snapshot</id> -->
-<!-- 			<name>Wmeimob Repository</name> -->
-<!-- 			<url>http://nexus.wmeimob.com/content/repositories/snapshots/</url> -->
-<!-- 		</repository> -->
-<!-- 		<repository> -->
-<!-- 			<id>aliyun-snapshot</id> -->
-<!-- 			<name>aliyun Repository</name> -->
-<!-- 			<url>http://maven.aliyun.com/nexus/content/repositories/central/</url> -->
-<!-- 		</repository> -->
 		<repository>
 			<id>rdc-releases</id>
 			<url>https://repo.rdc.aliyun.com/repository/20927-release-EZ6NOh/</url>
