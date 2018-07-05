@@ -16,6 +16,11 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
+			<groupId>com.wmeimob</groupId>
+			<artifactId>wmeimob-doclet</artifactId>
+			<type>jar</type>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>

@@ -39,7 +39,7 @@ public class ProjectController extends BaseController {
 
 	/**
 	 * 根据ID获取项目
-	 * @param id
+	 * @param id 主键ID
 	 * @return
 	 * @author zJun
 	 * @date 2018年7月3日 下午5:09:23

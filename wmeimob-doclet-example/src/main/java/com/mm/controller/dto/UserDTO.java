@@ -33,6 +33,7 @@ public class UserDTO implements Serializable {
 	 * @default 18
 	 */
 	private String age;
+	
 	/**
 	 * 性别
 	 * @default SIR

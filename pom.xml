@@ -39,6 +39,13 @@
 				<type>jar</type>
 				<version>${project.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>com.wmeimob</groupId>
+				<artifactId>wmeimob-doclet</artifactId>
+				<type>jar</type>
+				<version>${project.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>org.mybatis.spring.boot</groupId>

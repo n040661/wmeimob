@@ -22,7 +22,7 @@ public class TestController {
 
 	/**
 	 * 查询Admin
-	 * @param id N/A 主键 true
+	 * @param id 主键
 	 * @return 返回说明
 	 * @author zJun
 	 * @date 2018年6月27日 下午2:56:14

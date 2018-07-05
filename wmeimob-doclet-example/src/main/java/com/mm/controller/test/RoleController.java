@@ -39,7 +39,7 @@ public class RoleController {
 	/**
 	 * 新增角色
 	 * @header caseId 案例ID
-	 * @param dto N/A 角色DTO true RoleDTO
+	 * @param dto 角色DTO
 	 * @return 返回说明
 	 * @author zJun
 	 * @date 2018年6月28日 上午10:56:44

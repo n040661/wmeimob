@@ -25,7 +25,7 @@
 	 * @choice fullName account password
 	 * @return 返回新增后系统用户ID
 	 * @author zJun
-	 * @date 2018年7月3日 下午4:44:16
+	 * @date 2018年7月3日 下午4:44:16q
 	 */
 	@PostMapping
 	public BigInteger add(AdminUser user) {
@@ -83,10 +83,86 @@
 表示该类下的所有接口头部header必需包含token
 
 
-# 前端说明
-## 项目列表
+# 使用说明
 
-## 环境列表
+
+## pom.xml
+
+```
+<dependency>
+	<groupId>com.wmeimob</groupId>
+	<artifactId>wmeimob-doclet</artifactId>
+	<type>jar</type>
+</dependency>
+```
+
+## java代码
+```
+package com.mm;
+
+
+import com.mm.doclet.ControllerDoclet;
+import com.mm.doclet.Main;
+import com.mm.entity.SingletonDocs;
+import com.mm.entity.SingletonModule;
+
+// 该文件在wmeimob-doclet-example项目中，大家可以去试试
+public class Doclet {
+
+	public static void main(String[] args) {
+		SingletonDocs instance = SingletonDocs.getInstance();
+		// 全局的上下文contextPath配置
+		instance.setContextPath("/doclet-api");
+		// 您要加载的包路径
+		String subpackages = "com.mm";
+		// 项目路径；您java代码的路径
+		String path = "E:\\word\\2018.5.8\\wmeimob\\wmeimob-doclet-example\\";
+		// 加载代码，可多次加载。也就是说能加载多个目录的代码，maven分模块会用到
+		// Main.go(path, subpackages);
+		path = "E:\\word\\2018.5.8\\wmeimob\\wmeimob-doclet-example\\";
+		Main.go(path, subpackages);
+		// 开始解析生成JSON
+		ControllerDoclet.execute();
+		// 输出JSON到控制台、怎么用您自己决定
+		System.out.println(SingletonModule.getInstance().datoToJSONString());
+	}
+
+}
+
+```
+
+## 前端说明
+
+1. 目录: node/html/ 编译后的文件
+2. 目录: node/javadoc/ 前端源码
+3. 原本打算将数据存数据库，因赶时间部分存本地缓存了，项目文档JSON存为文件.json放在static目录
+4. static目录下project.json存的是项目列表。title为网页显示的项目名，name为项目文件名（不加.json）
+5. 例如:{title:'A', name:'test'} 项目展示名称为[A]，选择后会加载[test.json]文件 test.json内容为wmeimob-doclet生成的JSON
+
+
+## 前端nginx部署配置
+如果您的项目接口允许跨域访问，您可以随意配置。否则请将下面配置与测试接口域名一致。
+
+您可以设置虚拟域名host定向到本地，通过下面配置访问到前端页面。增加您接口的配置通过域名上下文转发到您的项目
+
+```
+    location /doclet {
+	    try_files $uri $uri/ /life/index_prod.html;
+	    root   d:/html/javadoc/; #本地目录
+	    index  index_prod.html index.htm;
+	}
+
+	location /static {
+	    root   d:/html/javadoc/; #本地目录
+	    index  index_prod.html index.htm;
+	}
+	
+	# test为您项目的上下文，8090：您项目的端口
+	location /test {
+		proxy_pass    http://127.0.0.1:8090/test;
+	}
+```
+
 
 
 # 效果展示

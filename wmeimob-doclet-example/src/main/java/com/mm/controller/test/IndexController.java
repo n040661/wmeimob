@@ -38,7 +38,7 @@ public class IndexController {
 	/**
 	 * 添加用户
 	 * @header caseId 案例ID
-	 * @param dto N/A 用户DTO true
+	 * @param dto 用户DTO
 	 * @return 返回说明
 	 * @author zJun
 	 * @date 2018年6月27日 下午2:21:21
