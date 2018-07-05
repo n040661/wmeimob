@@ -18,6 +18,11 @@ public class IApiConstant {
 	public final static String DOC_PARAM = "@param";
 	
 	/**
+	 * 多个模块或者项目一起生成需要单独给每个controller加上该标签
+	 */
+	public final static String DOC_CONTEXT_PATH = "@contextPath";
+	
+	/**
 	 * 作者标签
 	 */
 	public final static String DOC_AUTHOR = "@author";

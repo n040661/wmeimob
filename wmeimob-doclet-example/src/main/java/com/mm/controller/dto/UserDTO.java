@@ -1,9 +1,12 @@
 package com.mm.controller.dto;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 用户DTO
@@ -11,8 +14,12 @@ import lombok.Data;
  * @date 2018年6月27日 下午2:12:50
  */
 @Data
-public class UserDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDTO implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * 主键ID
 	 */

@@ -12,6 +12,7 @@ import com.mm.entity.SingletonModule;
 import com.mm.util.DocletUtil;
 import com.sun.javadoc.AnnotationDesc;
 import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.Tag;
 
 /**
  * 解析Controller
@@ -43,7 +44,7 @@ public class ExecuteController {
 				break;
 			}
 		}
-
+		
 		if (rm != null) {
 			start(rm);
 		}
@@ -61,7 +62,7 @@ public class ExecuteController {
 		SingletonModule modules = SingletonModule.getInstance();
 		ModuleDoc module = modules.get(key);
 		if (module == null) {
-			module = new ModuleDoc(title);
+			module = new ModuleDoc(key, title);
 			modules.put(key, module, isTop);
 		}
 		if (pModule != null) {
@@ -92,7 +93,15 @@ public class ExecuteController {
 		}
 		
 		List<KeyValue> list = headers(rm);
-		new ExecuteControllerFun(cd, pModule, path, list);
+		
+		Tag[] tags = cd.tags(IApiConstant.DOC_CONTEXT_PATH);
+		String contextPath = null;
+		if(tags.length > 0) {
+			System.out.println(tags[0].text() + "--" + cd);
+			contextPath = tags[0].text();
+		}
+		
+		new ExecuteControllerFun(cd, pModule, contextPath, path, list);
 	}
 	
 	private List<KeyValue> headers(RequestMapping rm) {

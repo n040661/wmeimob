@@ -1,5 +1,6 @@
 package com.mm.doclet;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,6 +40,30 @@ public class ControllerDoclet extends Doclet {
 		LogUtil.info(log, "添加ClassDoc数量: {}", classes.length);
 		return true ;
 	}
+
+	/**
+	 * 开始执行
+	 * @param fileName
+	 * @author zJun
+	 * @date 2018年6月29日 上午9:32:24
+	 */
+	public static void go(String fileName, String subpackages) {
+		File file = new File(fileName);
+		recursion(file, subpackages);
+	}
+	
+	/**
+	 * 启动程序
+	 * @param sourcepath
+	 * @param subpackages
+	 * @author zJun
+	 * @date 2018年6月26日 下午3:33:47
+	 */
+	private static void exeCMD(String sourcepath, String subpackages) {
+		String[] docArgs = new String[] { "-doclet", ControllerDoclet.class.getName(), "-private", "-sourcepath", sourcepath,
+				"-subpackages", subpackages};
+		com.sun.tools.javadoc.Main.execute(docArgs);
+	}
 	
 	public static int optionLength(String option) {
 		Map<String, Integer> options = new HashMap<String, Integer>();
@@ -58,19 +83,6 @@ public class ControllerDoclet extends Doclet {
 	}
 	
 	/**
-	 * 启动程序
-	 * @param sourcepath
-	 * @param subpackages
-	 * @author zJun
-	 * @date 2018年6月26日 下午3:33:47
-	 */
-	public static void start(String sourcepath, String subpackages) {
-		String[] docArgs = new String[] { "-doclet", ControllerDoclet.class.getName(), "-private", "-sourcepath", sourcepath,
-				"-subpackages", subpackages};
-		com.sun.tools.javadoc.Main.execute(docArgs);
-	}
-	
-	/**
 	 * 解析加载好的ClassesDoc
 	 * @author zJun
 	 * @date 2018年6月26日 下午5:18:30
@@ -80,6 +92,34 @@ public class ControllerDoclet extends Doclet {
 		for(Entry<String, ClassDoc> entry : instance.entrySet()) {
 			ClassDoc cd = entry.getValue();
 			new ExecuteController(cd);
+		}
+	}
+	
+	public static void recursion(File file, String subpackages) {
+		File[] files = file.listFiles();
+		if(files == null) {
+			return;
+		}
+		for (File f : files) {
+			if(f.getName().startsWith("\\.")) {
+				continue;
+			}
+			if("src".equals(f.getName())) {
+				continue;
+			}
+			
+			if ("pom.xml".equals(f.getName())) {
+				String src = f.getParent() + "/src/main/java/";
+				if (new File(src).exists()) {
+					LogUtil.info(log, "开始加载目录:{}", src);
+					exeCMD(src, subpackages);
+				}
+				continue;
+			}
+			
+			if (file.isDirectory()) {
+				recursion(f, subpackages);
+			}
 		}
 	}
 

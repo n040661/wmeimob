@@ -1,11 +1,14 @@
 package com.mm.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
  * 单例、用于暂时储存ClassDoc数据
@@ -15,7 +18,7 @@ import com.alibaba.fastjson.JSON;
 public class SingletonModule {
 
 	private volatile static SingletonModule instance;
-	public Map<String, ModuleDoc> data = new HashMap<>(16);
+	public List<ModuleDoc> data = new ArrayList<>(16);
 	public Map<String, ModuleDoc> temp = new HashMap<>(16);
 
 	private SingletonModule() {
@@ -46,9 +49,9 @@ public class SingletonModule {
 		}
 		if(temp.get(key) == null) {
 			this.temp.put(key, value);
-		}
-		if(isTop) {
-			this.data.put(key, value);
+			if(isTop) {
+				this.data.add(value);
+			}
 		}
 	}
 
@@ -65,6 +68,6 @@ public class SingletonModule {
 	}
 	
 	public String datoToJSONString() {
-		return JSON.toJSONString(data); 
+		return JSON.toJSONString(data, SerializerFeature.DisableCircularReferenceDetect); 
 	}
 }

@@ -1,4 +1,4 @@
-package com.mm.controller.sys;
+package com.mm.controller.test;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import com.mm.controller.dto.RoleDTO;
  * @date 2018年6月28日 上午10:46:16
  */
 @RestController
-@RequestMapping(name = "/sys/role", headers = { "appId" })
+@RequestMapping(value = "/test/role", headers = { "appId" })
 public class RoleController {
 
 	/**
@@ -44,7 +44,7 @@ public class RoleController {
 	 * @author zJun
 	 * @date 2018年6月28日 上午10:56:44
 	 */
-	@PostMapping(name = "add", headers="caseId")
+	@PostMapping(value = "add", headers="caseId")
 	public void add(RoleDTO dto) {
 	
 	}

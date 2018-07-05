@@ -1,4 +1,4 @@
-package com.mm.controller;
+package com.mm.controller.test;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import com.mm.controller.dto.UserDTO;
  * @date 2018年6月27日 下午2:07:46
  */
 @RestController
-@RequestMapping(name="/", headers= {"appId"})
+@RequestMapping(value="/test", headers= {"appId"})
 public class IndexController {
 
 	/**
@@ -29,7 +29,7 @@ public class IndexController {
 	 * @author zJun
 	 * @date 2018年6月27日 下午2:09:41
 	 */
-	@RequestMapping(name="index", method= RequestMethod.GET, headers= {"a", "b", "c=1"})
+	@RequestMapping(value="index", method= RequestMethod.GET, headers= {"a", "b", "c=1"})
 	@ResponseBody
 	public String index() {
 		return "index";

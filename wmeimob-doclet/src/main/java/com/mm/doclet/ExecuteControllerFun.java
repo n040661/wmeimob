@@ -33,12 +33,14 @@ public class ExecuteControllerFun {
 	private ModuleDoc pModule;
 	private String path;
 	private List<KeyValue> headers;
-
-	public ExecuteControllerFun(ClassDoc cd, ModuleDoc pModule, String path, List<KeyValue> headers) {
+	private String contextPath;
+	
+	public ExecuteControllerFun(ClassDoc cd, ModuleDoc pModule, String contextPath, String path, List<KeyValue> headers) {
 		this.cd = cd;
 		this.pModule = pModule;
 		this.path = path;
 		this.headers = headers;
+		this.contextPath = contextPath;
 		execute();
 	}
 
@@ -56,7 +58,7 @@ public class ExecuteControllerFun {
 					break;
 				}
 			}
-			
+			doc.setId(mDoc.toString());
 			headers(mDoc, doc, rm);
 			param(mDoc, doc, rm);
 			result(mDoc, doc);
@@ -86,7 +88,7 @@ public class ExecuteControllerFun {
 	private void param(MethodDoc mDoc, InterfacDoc doc, RequestMapping rm) {
 		SingletonDocs instance = SingletonDocs.getInstance();
 		if(rm != null) {
-			String src = instance.getContextPath() + path +"/" + rm.getName();
+			String src = (contextPath == null ? instance.getContextPath() : contextPath) + path +"/" + rm.getName();
 			doc.setMethod(rm.getMethod());
 			doc.setPath(src.replaceAll("//", "/"));
 		}
@@ -114,19 +116,22 @@ public class ExecuteControllerFun {
 					break;
 				}
 			}
-			DocletUtil.eachParamTag(doc, tag, p.typeName(), cMap, eMap);
+			DocletUtil.eachParamTag(doc, tag, p.type().qualifiedTypeName(), cMap, eMap);
 			i++;
 		}
 	}
 	
 	private void result(MethodDoc mDoc, InterfacDoc doc) {
 		SingletonDocs sDocs = SingletonDocs.getInstance();
-		String typeName = mDoc.returnType().simpleTypeName();
+		String typeName = mDoc.returnType().qualifiedTypeName();
 		ClassDoc cd = sDocs.get(typeName);
 		ClassDoc typeDoc = null;
 		ParameterizedType pt = mDoc.returnType().asParameterizedType();
 		if(cd == null && pt!= null) {
-			cd = SingletonDocs.getInstance().get(pt.typeArguments()[0].simpleTypeName());
+			if(pt.typeArguments().length == 0) {
+				throw SeriousException.getInstance(String.format("%s()接口返回值请指定泛型类型", mDoc));
+			}
+			cd = SingletonDocs.getInstance().get(pt.typeArguments()[0].qualifiedTypeName());
 		}
 		
 		if(pt != null) {

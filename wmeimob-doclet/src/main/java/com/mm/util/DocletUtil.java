@@ -37,10 +37,10 @@ public class DocletUtil {
 			key = strToken.nextToken();
 		}
 		if(strToken.hasMoreTokens()) {
-			value = strToken.nextToken();
+			notes = strToken.nextToken();
 		}
 		if(strToken.hasMoreTokens()) {
-			notes = strToken.nextToken();
+			value = strToken.nextToken();
 		}
 		if(strToken.hasMoreTokens()) {
 			required = Boolean.parseBoolean(strToken.nextToken());
@@ -154,7 +154,7 @@ public class DocletUtil {
 			}
 			
 			ParameterizedType pt = fDoc.type().asParameterizedType();
-			String type = fDoc.type().simpleTypeName();
+			String type = fDoc.type().qualifiedTypeName();
 			
 			ClassDoc docT = SingletonDocs.getInstance().get(type);
 			Object def = null;

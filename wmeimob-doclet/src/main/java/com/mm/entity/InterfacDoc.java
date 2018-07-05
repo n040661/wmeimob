@@ -13,6 +13,8 @@ import lombok.Data;
 @Data
 public class InterfacDoc {
 
+	/** id 包名.类名.方法 */
+	private String id;
 	/** 请求method */
 	private String method;
 	/** 请求路径 */
@@ -31,7 +33,9 @@ public class InterfacDoc {
 	private String date;
 	/** 参考 */
 	private String[] see;
-	
+	/** vue组件tree标题 */
+	private String title;
+
 	private List<KeyValue> headers;
 	private List<KeyValue> params;
 	private List<KeyValue> results;
@@ -61,6 +65,15 @@ public class InterfacDoc {
 		results.add(kv);
 	}
 	
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+		this.title = notes;
+	}
+
 	/**
 	 * 提交方式
 	 * @author zJun

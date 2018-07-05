@@ -13,16 +13,18 @@ import lombok.Data;
 @Data
 public class ModuleDoc {
 
+	private String id;
 	private String title;
 	private boolean expand;
-	private List<ModuleDoc> children;
-	private List<InterfacDoc> docs;
+	private List<Object> children;
+//	private List<InterfacDoc> docs;
 	
 	public ModuleDoc() {
 		this.expand = true;
 	}
 	
-	public ModuleDoc(String title) {
+	public ModuleDoc(String id, String title) {
+		this.id = id;
 		this.title = title;
 		this.expand = true;
 	}
@@ -37,7 +39,9 @@ public class ModuleDoc {
 		if(children == null) {
 			children = new ArrayList<>();
 		}
-		children.add(item);
+		if(!children.contains(item)) {
+			children.add(item);
+		}
 	}
 	
 	/**
@@ -47,10 +51,10 @@ public class ModuleDoc {
 	 * @date 2018年6月27日 上午11:36:35
 	 */
 	public void addInterfacDoc(InterfacDoc item) {
-		if(docs == null) {
-			docs = new ArrayList<>();
+		if(children == null) {
+			children = new ArrayList<>();
 		}
-		docs.add(item);
+		children.add(item);
 	}
 	
 }
