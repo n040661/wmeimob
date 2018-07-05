@@ -183,13 +183,13 @@ public class Doclet {
 
 ```
     location /doclet {
-	    try_files $uri $uri/ /life/index_prod.html;
-	    root   d:/html/javadoc/; #本地目录
+	    try_files $uri $uri/ /doclet/index_prod.html;
+	    root   d:/web/node/html/;
 	    index  index_prod.html index.htm;
 	}
 
 	location /static {
-	    root   d:/html/javadoc/; #本地目录
+	    root   d:/web/node/html/;
 	    index  index_prod.html index.htm;
 	}
 	
