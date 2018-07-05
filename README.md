@@ -87,6 +87,8 @@ private Sex sex;
  */
 ```
 
+## @see 由于时间问题没写逻辑
+
 在Controller类上使用，指定请求上下文。如果生成的文档是单个项目可指定全局contextPat。该注释在同时生成多个模块(maven模块开发)时使用
 
 # 注解使用规范
@@ -155,7 +157,7 @@ public class Doclet {
 		Main.go(path, subpackages);
 		// 开始解析生成JSON
 		ControllerDoclet.execute();
-		// 输出JSON到控制台、怎么用您自己决定
+		// 输出JSON到控制台、怎么用您自己决定。在这个项目中是复制起来保存到node/html/static/文件名.json中
 		System.out.println(SingletonModule.getInstance().datoToJSONString());
 	}
 
